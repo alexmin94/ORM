@@ -11,14 +11,25 @@ router.get('/', (req, res) => {
   })
   .then((categories)=> res.json(categories))
   .catch((err)=>res.status(500).json(err))
-});p
+});
 
 router.get('/:id', (req, res) => {
+  Category.findOne({
+    where:{
+      id:req.params.id
+    },
+    include:[Product]
+  })
+  .then((category)=>res.status(200).json(category))
+  .catch((err)=>res.status(500).json(err))
   // find one category by its `id` value
   // be sure to include its associated Products
 });
 
 router.post('/', (req, res) => {
+  Category.create(req.body)
+  .then((category)=>res.status(200).json(category))
+  .catch((err)=>res.status(500).json(err))
   // create a new category
 });
 
