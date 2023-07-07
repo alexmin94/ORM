@@ -34,11 +34,25 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
+  Category.update(req.body,
+    {where:{
+      id:req.params.id,
+    }
+    })
+    .then((category)=>res.status(200).json(category))
+  .catch((err)=>res.status(500).json(err))
   // update a category by its `id` value
 });
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
+  Category.destroy(req.body,
+    {where:{
+      id:req.params.id,
+    }
+    })
+    .then((category)=>res.status(200).json(category))
+  .catch((err)=>res.status(500).json(err))
 });
 
 module.exports = router;
